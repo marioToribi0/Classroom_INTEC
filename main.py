@@ -1,5 +1,4 @@
 from flask import Flask, render_template, jsonify, request
-from sqlalchemy import func
 from work_data import Data_Cleaned
 import datetime as dt
 
