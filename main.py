@@ -64,6 +64,7 @@ def get_availables():
         day = dt.datetime.now(IST).strftime("%A")
     if (hour==None):
         hour = int(dt.datetime.now(IST).strftime("%H"))
+        print(hour)
     if (area!=None):
         area = area.upper()
     if (comprobate!=None):

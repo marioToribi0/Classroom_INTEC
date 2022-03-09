@@ -89,7 +89,7 @@ class Data_Cleaned:
             
             # Comprobation if is a VIRTU
             section_is_virtual = False
-            if ("VIRTU" in classroom[section] and count_shedule!=len(classroom[section]) and count_shedule!=1):
+            if ("VIRTU" in classroom[section] and count_shedule!=len(classroom[section])):
                 section_is_virtual = True
 
 
@@ -99,7 +99,7 @@ class Data_Cleaned:
                 count_section = 0 
                 
                 name_classroom = classroom[section][count_section]
-                
+
                 list_shedule = ["" for j in range(6)]
                 for i in range(len(shedule[section])):
                     if (shedule[section][i]!=""):
@@ -176,8 +176,8 @@ class Data_Cleaned:
         return available
 
 # # Comprobate hour
-# classroom = Data_Cleaned()
-# day = "Monday"
-# hour = 19
-# print(classroom.classroom_availables(day, hour,area="EL", comprobate=None))
-# print(classroom.query_classroom["EL301"])
+classroom = Data_Cleaned()
+# day = "Wednesday"
+# hour = 9
+# print(classroom.classroom_availables(day, hour,area=None, comprobate=None))
+# print(classroom.query_classroom["GC304"])
