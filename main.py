@@ -2,6 +2,7 @@ from flask import Flask, render_template, jsonify, request
 from work_data import Data_Cleaned
 import datetime as dt
 import pytz
+from flask_cors import CORS 
 
 #Wrapped function
 from functools import wraps
@@ -17,6 +18,7 @@ IST = pytz.timezone('America/Puerto_Rico')
 
 token_api = environ["API_KEY_INTEC"]
 app = Flask(__name__)
+CORS(app)
 classroom = Data_Cleaned()
 
 # Authentification
