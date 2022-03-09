@@ -20,4 +20,4 @@ werkzeug==2.0.1
     # via
     #   -r requirements.in
     #   flask
-flask-cors-3.0.10
+flask-cors==3.0.10
