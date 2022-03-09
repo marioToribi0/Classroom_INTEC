@@ -120,16 +120,8 @@ class Data_Cleaned:
                 
                 for i in range(len(shedule[section])):
                     if (shedule[section][i]!=""):        
-                        try:
-                            name_classroom = classroom[section][count_section]        
-                        except:
-                            print(classroom[section])
-                            print(shedule[section])
-                            print(section_is_virtual)
-                            print(count_shedule)
-                            print(len(classroom[section]))
-                            print("  hello  ".strip())
-                            exit()
+                        name_classroom = classroom[section][count_section]        
+
                         count_section += 1
                         list_shedule[i] = shedule[section][i]
 
@@ -180,12 +172,12 @@ class Data_Cleaned:
                         else:
                             available.append(room)
             except:
-                print(room)
+                pass
         return available
 
 # # Comprobate hour
-classroom = Data_Cleaned()
-day = "Monday"
-hour = 19
-print(classroom.classroom_availables(day, hour,area="EL", comprobate=None))
-print(classroom.query_classroom["EL301"])
+# classroom = Data_Cleaned()
+# day = "Monday"
+# hour = 19
+# print(classroom.classroom_availables(day, hour,area="EL", comprobate=None))
+# print(classroom.query_classroom["EL301"])
