@@ -1,17 +1,8 @@
-from re import S
 from flask import Flask, render_template, jsonify, request
-from flask_sqlalchemy import SQLAlchemy
 from work_data import Data_Cleaned
 
 app = Flask(__name__)
-# app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data.sqlite"
-# db = SQLAlchemy(app)
-
-
 classroom = Data_Cleaned()
-
-# ADD D
-
 @app.route("/")
 def index():
     return jsonify({"message": "Classroom"})
