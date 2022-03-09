@@ -1,6 +1,7 @@
 from flask import Flask, render_template, jsonify, request
 from work_data import Data_Cleaned
 import datetime as dt
+import pytz
 
 #Wrapped function
 from functools import wraps
@@ -10,6 +11,9 @@ from os import environ
 from dotenv import load_dotenv, find_dotenv
 
 load_dotenv(find_dotenv())
+
+# Date
+IST = pytz.timezone('America/Puerto_Rico')
 
 token_api = environ["API_KEY_INTEC"]
 app = Flask(__name__)
@@ -55,9 +59,9 @@ def get_availables():
 
     # Validation of the information
     if (day==None or day.capitalize() not in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]):
-        day = dt.datetime.now().strftime("%A")
+        day = dt.datetime.now(IST).strftime("%A")
     if (hour==None):
-        hour = int(dt.datetime.now().strftime("%H"))
+        hour = int(dt.datetime.now(IST).strftime("%H"))
     if (area!=None):
         area = area.upper()
     if (comprobate!=None):
