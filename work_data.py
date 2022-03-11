@@ -1,4 +1,6 @@
 import pandas as pd
+import datetime as dt
+
 # This class if to work with the hours of shedules
 class Hour:
     def __init__(self) -> None:
@@ -89,49 +91,79 @@ class Data_Cleaned:
             
             # Comprobation if is a VIRTU
             section_is_virtual = False
-            if ("VIRTU" in classroom[section] and count_shedule!=len(classroom[section])):
+            if ("VIRTU" in classroom[section] and count_shedule!=len(classroom[section]) and count_shedule!=1):
                 section_is_virtual = True
 
 
             # If it isn't virtual append each shedule to classroom
             # Second condition is for the hybrid classes
-            if (len(classroom[section])==1 or (section_is_virtual)):
+            if ((section_is_virtual and (count_shedule<len(classroom[section]) or count_shedule>len(classroom[section]))) or len(classroom[section])==1):
                 count_section = 0 
                 
                 name_classroom = classroom[section][count_section]
-
-                list_shedule = ["" for j in range(6)]
-                for i in range(len(shedule[section])):
-                    if (shedule[section][i]!=""):
-                        list_shedule[i] = shedule[section][i]
-                        
-                        sections_with_classroom[name_classroom] = list_shedule
-            elif (len(classroom[section])!=count_shedule):
-                for name_classroom in range(len(classroom[section])):
-                    list_shedule = ["" for j in range(6)]
-                    for i in range(len(shedule[section])):
-                        if (shedule[section][i]!=""):
-                            list_shedule[i] = shedule[section][i]
-                            
-                            sections_with_classroom[name_classroom] = list_shedule
-            else:
-                count_section = 0
-                list_shedule = ["" for j in range(6)]
                 
                 for i in range(len(shedule[section])):
-                    if (shedule[section][i]!=""):        
-                        name_classroom = classroom[section][count_section]        
+                    if (shedule[section][i]!=""):
+                        list_shedule = ["" for j in range(6)]
+                        list_shedule[i] = shedule[section][i]
+                        
 
+                        ##APPEND DATA TO QUERY
+                        actual_data = self.query_classroom.get(name_classroom, [])
+                        actual_data.append(list_shedule)
+                        if (name_classroom!="VIRTU"):
+                            self.query_classroom[name_classroom] = actual_data
+
+            elif (section_is_virtual and (count_shedule==len(classroom[section]))):
+                count_section = -1
+                
+                name_classroom = classroom[section][count_section]
+                
+                for i in range(len(shedule[section])):
+                    if (shedule[section][i]!=""):
+                        list_shedule = ["" for j in range(6)]
                         count_section += 1
+                        name_classroom = classroom[section][count_section]
+                        list_shedule[i] = shedule[section][i]
+                        
+                        ##APPEND DATA TO QUERY
+                        actual_data = self.query_classroom.get(name_classroom, [])
+                        actual_data.append(list_shedule)
+                        if (name_classroom!="VIRTU"):
+                            self.query_classroom[name_classroom] = actual_data
+            #Barinas's bug
+            elif (len(classroom[section])!=count_shedule and not section_is_virtual):
+                for name_classroom in classroom[section]:
+                    
+                    for i in range(len(shedule[section])):
+                        if (shedule[section][i]!=""):
+                            list_shedule = ["" for j in range(6)]
+                            list_shedule[i] = shedule[section][i]
+                            ##APPEND DATA TO QUERY
+                            actual_data = self.query_classroom.get(name_classroom, [])
+                            actual_data.append(list_shedule)
+
+
+                            if (name_classroom!="VIRTU"):
+                                self.query_classroom[name_classroom] = actual_data    
+            else:
+                count_section = -1
+                
+                for i in range(len(shedule[section])):
+                    if (shedule[section][i]!=""):  
+                        list_shedule = ["" for j in range(6)]   
+                        count_section += 1   
+                        
+                        name_classroom = classroom[section][count_section]        
                         list_shedule[i] = shedule[section][i]
 
                         sections_with_classroom[name_classroom] = list_shedule
-            
-            ##APPEND DATA TO QUERY
-            actual_data = self.query_classroom.get(name_classroom, [])
-            actual_data.append(list_shedule)
-            self.query_classroom[name_classroom] = actual_data
-
+                        
+                        ##APPEND DATA TO QUERY
+                        actual_data = self.query_classroom.get(name_classroom, [])
+                        actual_data.append(list_shedule)
+                        if (name_classroom!="VIRTU"):
+                            self.query_classroom[name_classroom] = actual_data
         # Clean shedule
         for key,value in self.query_classroom.items():
             self.query_classroom[key] = Hour.reduce(self.query_classroom[key])
@@ -172,12 +204,12 @@ class Data_Cleaned:
                         else:
                             available.append(room)
             except:
-                pass
+                print(room)
         return available
 
 # # Comprobate hour
 classroom = Data_Cleaned()
-# day = "Wednesday"
-# hour = 9
-# print(classroom.classroom_availables(day, hour,area=None, comprobate=None))
-# print(classroom.query_classroom["GC304"])
+day = "Thursday"
+hour = 14
+print(classroom.classroom_availables(day, hour,area=None, comprobate=None))
+print(classroom.query_classroom["GC304"])
