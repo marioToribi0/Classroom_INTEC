@@ -207,9 +207,9 @@ class Data_Cleaned:
                 print(room)
         return available
 
-# # Comprobate hour
-classroom = Data_Cleaned()
-day = "Thursday"
-hour = 14
-print(classroom.classroom_availables(day, hour,area=None, comprobate=None))
-print(classroom.query_classroom["GC304"])
+# # # Comprobate hour
+# classroom = Data_Cleaned()
+# day = "Thursday"
+# hour = 14
+# print(classroom.classroom_availables(day, hour,area=None, comprobate=None))
+# print(classroom.query_classroom["GC304"])
