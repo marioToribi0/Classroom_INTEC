@@ -114,25 +114,25 @@ class Data_Cleaned:
                         if (name_classroom!="VIRTU"):
                             self.query_classroom[name_classroom] = actual_data
 
-            elif (section_is_virtual and (count_shedule==len(classroom[section]))):
-                count_section = -1
+            # elif (section_is_virtual and (count_shedule==len(classroom[section]))):
+            #     count_section = -1
                 
-                name_classroom = classroom[section][count_section]
+            #     name_classroom = classroom[section][count_section]
                 
-                for i in range(len(shedule[section])):
-                    if (shedule[section][i]!=""):
-                        list_shedule = ["" for j in range(6)]
-                        count_section += 1
-                        name_classroom = classroom[section][count_section]
-                        list_shedule[i] = shedule[section][i]
+            #     for i in range(len(shedule[section])):
+            #         if (shedule[section][i]!=""):
+            #             list_shedule = ["" for j in range(6)]
+            #             count_section += 1
+            #             name_classroom = classroom[section][count_section]
+            #             list_shedule[i] = shedule[section][i]
                         
-                        ##APPEND DATA TO QUERY
-                        actual_data = self.query_classroom.get(name_classroom, [])
-                        actual_data.append(list_shedule)
-                        if (name_classroom!="VIRTU"):
-                            self.query_classroom[name_classroom] = actual_data
+            #             ##APPEND DATA TO QUERY
+            #             actual_data = self.query_classroom.get(name_classroom, [])
+            #             actual_data.append(list_shedule)
+            #             if (name_classroom!="VIRTU"):
+            #                 self.query_classroom[name_classroom] = actual_data
             #Barinas's bug
-            elif (len(classroom[section])!=count_shedule and not section_is_virtual):
+            elif ((len(classroom[section])!=count_shedule and not section_is_virtual) or ("VIRTU" in classroom[section] and (count_shedule==len(classroom[section])))):
                 for name_classroom in classroom[section]:
                     
                     for i in range(len(shedule[section])):
@@ -209,7 +209,7 @@ class Data_Cleaned:
 
 # # # Comprobate hour
 # classroom = Data_Cleaned()
-# day = "Thursday"
-# hour = 14
-# print(classroom.classroom_availables(day, hour,area=None, comprobate=None))
-# print(classroom.query_classroom["GC304"])
+# day = "Monday"
+# hour = 13
+# print(classroom.classroom_availables(day, hour,area="GC", comprobate=None))
+# print(classroom.query_classroom["GC302"])
