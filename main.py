@@ -66,7 +66,7 @@ def get_availables():
     # Validation of the information
     if (day==None or day.capitalize() not in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]):
         day = dt.datetime.now(IST).strftime("%A")
-    if (hour=="None" or hour==None):
+    if (hour=="None" or hour!=None):
         hour = int(dt.datetime.now(IST).strftime("%H"))
         print(hour)
     if (area!="None" or area!=None):
