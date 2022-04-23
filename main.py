@@ -58,6 +58,8 @@ def get_availables():
     hour = request.args.get('hour')
     area = request.args.get("area")
     comprobate = request.args.get("comprobate")
+    until = request.args.get("until")
+    comprobate_before= request.args.get("comprobate_before")
 
     # Validation of the information
     if (day==None or day.capitalize() not in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]):
@@ -69,11 +71,15 @@ def get_availables():
         area = area.upper()
     if (comprobate!=None):
         comprobate = True
+    if (until!=None):
+        until = int(until)
+    if (comprobate_before!=None):
+        comprobate_before = True
 
     day = day.capitalize()
     hour = int(hour)
 
-    return({"classroom": classroom.classroom_availables(day,hour, area, comprobate)})
+    return({"classroom": classroom.classroom_availables(day,hour, area, comprobate, until, comprobate_before)})
 
 if (__name__=="__main__"):
     app.run(debug=True, port=5000)

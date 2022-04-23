@@ -114,24 +114,6 @@ class Data_Cleaned:
                         if (name_classroom!="VIRTU"):
                             self.query_classroom[name_classroom] = actual_data
 
-            # elif (section_is_virtual and (count_shedule==len(classroom[section]))):
-            #     count_section = -1
-                
-            #     name_classroom = classroom[section][count_section]
-                
-            #     for i in range(len(shedule[section])):
-            #         if (shedule[section][i]!=""):
-            #             list_shedule = ["" for j in range(6)]
-            #             count_section += 1
-            #             name_classroom = classroom[section][count_section]
-            #             list_shedule[i] = shedule[section][i]
-                        
-            #             ##APPEND DATA TO QUERY
-            #             actual_data = self.query_classroom.get(name_classroom, [])
-            #             actual_data.append(list_shedule)
-            #             if (name_classroom!="VIRTU"):
-            #                 self.query_classroom[name_classroom] = actual_data
-            #Barinas's bug
             elif ((len(classroom[section])!=count_shedule and not section_is_virtual) or ("VIRTU" in classroom[section] and (count_shedule==len(classroom[section])))):
                 for name_classroom in classroom[section]:
                     
@@ -181,16 +163,32 @@ class Data_Cleaned:
         return available
 
     # Comprobate if there are more clases on that day
-    def next_hours(self, day, hour, classroom):
+    def next_hours(self, day, hour, classroom, hour_indicated=None):
         result = False
-        for next_hour in Hour.to_list(self.query_classroom[classroom][self.days[day]]):
+        for i, next_hour in enumerate(Hour.to_list(self.query_classroom[classroom][self.days[day]])):
+            if hour_indicated==None:
+                if (next_hour[0]!=""):
+                    if (int(hour)<int(next_hour[0])):
+                        result = True
+            else:
+                result = True
+                if (next_hour[0]!=""):
+                    if (int(hour)<int(next_hour[0]) and hour_indicated>=int(next_hour[1])):
+                        print(classroom)
+                        print(next_hour)
+                        result = False
+                        break
+        return result
+
+    def before_hours(self, day, hour, classroom):
+        for i, next_hour in enumerate(Hour.to_list(self.query_classroom[classroom][self.days[day]])):
             if (next_hour[0]!=""):
-                if (int(hour)<int(next_hour[0])):
+                if (int(hour)>int(next_hour[0])):
                     result = True
         return result
 
     # Comprobate: it is to use the next_hours function
-    def classroom_availables(self, day,hour, area:str=None, comprobate=None):
+    def classroom_availables(self, day,hour, area:str=None, comprobate=None, until=None, comprobate_before=None):
         available = []
         for room, shedule in self.query_classroom.items():
             try:
@@ -198,8 +196,17 @@ class Data_Cleaned:
                     if (self.comprobate_classroom(day,hour,shedule) and room[-1].isnumeric()):
                         
                         # Comprobate next hours
-                        if (comprobate!=None):
-                            if (self.next_hours(day,hour,room)):
+                        if (comprobate!=None or until!=None or comprobate_before!=None):
+                            add_class = True
+                            ## Checks are done here
+                            if (comprobate_before==True and not self.before_hours(day,hour,room)):
+                                add_class = False
+                            
+                            if (not self.next_hours(day,hour,room, hour_indicated=until)):
+                                add_class = False
+                            
+                            # Add or not
+                            if (add_class):
                                 available.append(room)
                         else:
                             available.append(room)
@@ -208,8 +215,7 @@ class Data_Cleaned:
         return available
 
 # # # Comprobate hour
-# classroom = Data_Cleaned()
-# day = "Monday"
-# hour = 13
+classroom = Data_Cleaned()
+day = "Thursday"
+hour = 13
 # print(classroom.classroom_availables(day, hour,area="GC", comprobate=None))
-# print(classroom.query_classroom["GC302"])
