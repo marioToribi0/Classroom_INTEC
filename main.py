@@ -66,16 +66,16 @@ def get_availables():
     # Validation of the information
     if (day==None or day.capitalize() not in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]):
         day = dt.datetime.now(IST).strftime("%A")
-    if (hour!="None" or hour!=None):
+    if (hour!="None" and hour!=None):
         hour = int(dt.datetime.now(IST).strftime("%H"))
         print(hour)
-    if (area!="None" or area!=None):
+    if (area!="None" and area!=None):
         area = area.upper()
-    if (comprobate!="None" or comprobate!=None):
+    if (comprobate!="None" and comprobate!=None):
         comprobate = True
-    if (until!="None" or until!=None):
+    if (until!="None" and until!=None):
         until = int(until)
-    if (comprobate_before!="None" or comprobate_before!=None):
+    if (comprobate_before!="None" and comprobate_before!=None):
         comprobate_before = True
 
     day = day.capitalize()
