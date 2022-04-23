@@ -181,10 +181,11 @@ class Data_Cleaned:
         return result
 
     def before_hours(self, day, hour, classroom):
+        result = True
         for i, next_hour in enumerate(Hour.to_list(self.query_classroom[classroom][self.days[day]])):
             if (next_hour[0]!=""):
                 if (int(hour)>int(next_hour[0])):
-                    result = True
+                    result = False
         return result
 
     # Comprobate: it is to use the next_hours function
@@ -219,5 +220,5 @@ classroom = Data_Cleaned()
 day = "Monday"
 hour = 9
 # print(classroom.classroom_availables(day, hour,area="GC", comprobate=None))
-print(classroom.classroom_availables(day="Monday", hour=9, area="GC", comprobate=None, until=11, comprobate_before=None))
-print(classroom.query_classroom["GC305"]) 
+# print(classroom.classroom_availables(day="Monday", hour=9, area="GC", comprobate=None, until=11, comprobate_before=None))
+# print(classroom.query_classroom["GC305"]) 

@@ -27,6 +27,8 @@ def authentification_toke(function):
     def wrapper(*args, **kwargs):
         key = request.args.get("key")
         if (key==None or key!=token_api):
+            print(token_api)
+            print(request.args.get("key"))
             return jsonify({"message": "Without access"})
         return function(*args, **kwargs)
     return wrapper
@@ -64,16 +66,16 @@ def get_availables():
     # Validation of the information
     if (day==None or day.capitalize() not in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]):
         day = dt.datetime.now(IST).strftime("%A")
-    if (hour==None):
+    if (hour=="None"):
         hour = int(dt.datetime.now(IST).strftime("%H"))
         print(hour)
-    if (area!=None):
+    if (area!="None"):
         area = area.upper()
-    if (comprobate!=None):
+    if (comprobate!="None"):
         comprobate = True
-    if (until!=None):
+    if (until!="None"):
         until = int(until)
-    if (comprobate_before!=None):
+    if (comprobate_before!="None"):
         comprobate_before = True
 
     day = day.capitalize()
