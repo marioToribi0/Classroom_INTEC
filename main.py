@@ -62,13 +62,12 @@ def get_availables():
     comprobate = request.args.get("comprobate")
     until = request.args.get("until")
     comprobate_before= request.args.get("comprobate_before")
-
     # Validation of the information
     if (day==None or day.capitalize() not in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]):
         day = dt.datetime.now(IST).strftime("%A")
-    if (hour!="None" and hour!=None):
+    if (hour=="None" or hour==None):
         hour = int(dt.datetime.now(IST).strftime("%H"))
-        print(hour)
+
     if (area!="None" and area!=None):
         area = area.upper()
     if (comprobate!="None" and comprobate!=None):
