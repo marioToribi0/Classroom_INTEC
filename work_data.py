@@ -216,6 +216,8 @@ class Data_Cleaned:
 
 # # # Comprobate hour
 classroom = Data_Cleaned()
-day = "Thursday"
-hour = 13
+day = "Monday"
+hour = 9
 # print(classroom.classroom_availables(day, hour,area="GC", comprobate=None))
+# print(classroom.classroom_availables(day="Monday", hour=9, area="GC", comprobate=None, until=11, comprobate_before=None))
+# print(classroom.query_classroom["GC305"])
