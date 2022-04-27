@@ -174,18 +174,21 @@ class Data_Cleaned:
                 result = True
                 if (next_hour[0]!=""):
                     if (int(hour)<int(next_hour[0]) and hour_indicated>=int(next_hour[1])):
-                        print(classroom)
-                        print(next_hour)
+                        # print(classroom)
+                        # print(next_hour)
                         result = False
                         break
         return result
 
+# Return true if there aren't an hour before of the parameter
     def before_hours(self, day, hour, classroom):
         result = True
         for i, next_hour in enumerate(Hour.to_list(self.query_classroom[classroom][self.days[day]])):
-            if (next_hour[0]!=""):
+            if (next_hour[0]!=''):
+                # print(next_hour)
                 if (int(hour)>int(next_hour[0])):
                     result = False
+                    break
         return result
 
     # Comprobate: it is to use the next_hours function
@@ -200,7 +203,7 @@ class Data_Cleaned:
                         if (comprobate!=None or until!=None or comprobate_before!=None):
                             add_class = True
                             ## Checks are done here
-                            if (comprobate_before==True and not self.before_hours(day,hour,room)):
+                            if (comprobate_before==True and self.before_hours(day,hour,room)):
                                 add_class = False
                             
                             if (not self.next_hours(day,hour,room, hour_indicated=until)):
@@ -212,13 +215,23 @@ class Data_Cleaned:
                         else:
                             available.append(room)
             except:
-                print(room)
+                pass
+                # print(room)
+        # print(f"ava: {available}")
         return available
 
 # # # Comprobate hour
-classroom = Data_Cleaned()
-day = "Monday"
-hour = 9
-# print(classroom.classroom_availables(day, hour,area="GC", comprobate=None))
-# print(classroom.classroom_availables(day="Monday", hour=9, area="GC", comprobate=None, until=11, comprobate_before=None))
-# print(classroom.query_classroom["GC305"]) 
+# classroom = Data_Cleaned()
+# day = "Monday"
+# hour = 12
+# area = "GC"
+# a = classroom.classroom_availables(day, hour,area=area)
+# # a = classroom.classroom_availables(day=day, hour=hour, area=area, comprobate=True, until=20, comprobate_before=None)
+# print(a)
+
+# for i in a:
+#     print(not classroom.before_hours(day,hour,i))
+#     print(f"{i}: {(classroom.query_classroom[i][0])}")
+
+# a = classroom.classroom_availables(day, hour,area=area, comprobate_before=True)
+# print(a)
