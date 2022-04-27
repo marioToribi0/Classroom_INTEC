@@ -70,6 +70,9 @@ def get_availables():
 
     if (area!="None" and area!=None):
         area = area.upper()
+        if (area=="ALL"):
+            area = None
+        
     if (comprobate!="None" and comprobate!=None):
         comprobate = True
     if (until!="None" and until!=None):

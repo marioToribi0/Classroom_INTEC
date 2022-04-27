@@ -229,6 +229,8 @@ class Data_Cleaned:
 # # a = classroom.classroom_availables(day=day, hour=hour, area=area, comprobate=True, until=20, comprobate_before=None)
 # print(a)
 
-# for i in a:
-#     print(not classroom.before_hours(day,hour,i))
-#     print(f"{i}: {(classroom.query_classroom[i][0])}")
+# # for i in a:
+# #     print(not classroom.before_hours(day,hour,i))
+# #     print(f"{i}: {(classroom.query_classroom[i][0])}")
+# a = classroom.classroom_availables(day, hour,area=area, until=hour)
+# print(a)
