@@ -203,7 +203,7 @@ class Data_Cleaned:
                         if (comprobate!=None or until!=None or comprobate_before!=None):
                             add_class = True
                             ## Checks are done here
-                            if (comprobate_before==True and self.before_hours(day,hour,room)):
+                            if (comprobate_before==True and not self.before_hours(day,hour,room)):
                                 add_class = False
                             
                             if (not self.next_hours(day,hour,room, hour_indicated=until)):
@@ -232,6 +232,3 @@ class Data_Cleaned:
 # for i in a:
 #     print(not classroom.before_hours(day,hour,i))
 #     print(f"{i}: {(classroom.query_classroom[i][0])}")
-
-# a = classroom.classroom_availables(day, hour,area=area, comprobate_before=True)
-# print(a)
