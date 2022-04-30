@@ -223,12 +223,12 @@ class Data_Cleaned:
 # # # Comprobate hour
 # classroom = Data_Cleaned()
 # day = "Monday"
-# hour = 12
+# hour = 13
 # area = "GC"
 # a = classroom.classroom_availables(day, hour,area=area)
-# # a = classroom.classroom_availables(day=day, hour=hour, area=area, comprobate=True, until=20, comprobate_before=None)
+# # # a = classroom.classroom_availables(day=day, hour=hour, area=area, comprobate=True, until=20, comprobate_before=None)
 # print(a)
-
+# print(classroom.query_classroom["AJ403"])
 # # for i in a:
 # #     print(not classroom.before_hours(day,hour,i))
 # #     print(f"{i}: {(classroom.query_classroom[i][0])}")
